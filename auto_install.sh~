@@ -152,7 +152,6 @@ function install_php()
   #  ./configure --prefix=$TARGET_DIR/php --enable-fpm --enable-mbstring --disable-pdo  --disable-debug --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex  --enable-zip --with-pcre-regex  --without-iconv --with-mysql --with-gd  --enable-gd-native-ttf --without-sqlite  --with-gettext --enable-sockets --enable-bcmath --enable-xml   --enable-zip
     ./configure  --prefix=$TARGET_DIR/php --enable-fpm --enable-fastcgi --enable-bcmath --enable-gd-native-ttf --enable-mbstring --enable-shmop --enable-soap --enable-sockets --enable-exif --enable-ftp --enable-sysvsem --enable-pcntl --enable-wddx --enable-zip --enable-xml --enable-pdo --with-pcre-regex  --with-png-dir=$TARGET_DIR/dependency/libpng --with-gd --with-mcrypt=$TARGET_DIR/dependency/libmcrypt --with-pear --with-curlwrappers --with-openssl=$TARGET_DIR/dependency/openssl --with-zlib=$TARGET_DIR/dependency/zlib --with-curl=$TARGET_DIR/dependency/curl --with-iconv --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-jpeg-dir --with-freetype-dir --with-mhash=$TARGET_DIR/dependency/mhash
     make
-    ```
     make install
 
     cd ..
@@ -160,7 +159,6 @@ function install_php()
     rm $TARGET_DIR/php/etc/php-fpm.conf
     cp $TARGET_DIR/install/php-fpm.conf   $TARGET_DIR/php/etc/
     cp $TARGET_DIR/install/stop-fpm   $TARGET_DIR/php
-    ```
    fi
 }
 
@@ -224,4 +222,14 @@ function install_git()
   fi
 }
 
-install_php
+function init_env_var()
+{
+   cd ~
+   echo 'export MYSQL_HOME=$HOME/local/mysql'>>.bash_profile
+   echo 'export GIT_HOME=$HOME/local/git'>>.bash_profile
+   echo 'export PHP_HOME=$HOME/local/php'>>.bash_profile
+   echo 'PATH=$MYSQL_HOME/bin:$GIT_HOME/bin:$PHP_HOME/bin:$PATH'>>.bash_profile
+   source .bash_profile
+}
+
+init_env_var

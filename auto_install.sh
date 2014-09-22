@@ -222,4 +222,15 @@ function install_git()
   fi
 }
 
-install_php
+function init_env_var()
+{
+   cd ~
+   echo '#mysql git php  #env_var'
+   echo 'export MYSQL_HOME=$HOME/local/mysql'>>.bash_profile
+   echo 'export GIT_HOME=$HOME/local/git'>>.bash_profile
+   echo 'export PHP_HOME=$HOME/local/php'>>.bash_profile
+   echo 'PATH=$MYSQL_HOME/bin:$GIT_HOME/bin:$PHP_HOME/bin:$PATH'>>.bash_profile
+   source .bash_profile
+}
+
+init_env_var
